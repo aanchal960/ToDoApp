@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+    <title>Notes App</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-dark bg-danger text-light">
+    <a href="#" class="navbar-brand">Note App</a>
+</nav>
+
+<!-- Add Note Button -->
+<div class="text-center pt-3 pb-3">
+    <button class="btn btn-danger" type="button" data-toggle="collapse" data-target="#noteForm" aria-expanded="false" aria-controls="collapseExample">
+        Add Note <i class="fas fa-plus pl-2"></i>
+    </button>
+</div>
+
+<!-- Form -->
+<div class="container collapse" id="noteForm">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-danger">
+                <div class="card-header bg-danger text-light">
+                    <h2 class="text-center">ADD NOTE</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-danger">Save <i class="fas fa-check-circle pl-2"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- List of Notes -->
+<div class="container-fluid pt-3">
+    <div class="card-columns">
+    {% for note in notes %}
+    <div class="card bg-light border-danger">
+        <div class="card-body">
+            <p class="lead"><strong>Title : </strong>{{ note.todo }}</p>
+            {% if note.done == True %}
+            <p class="lead"><strong>Status : </strong>Task Done</p>
+            {% else %}
+            <p class="lead"><strong>Status : </strong>Task Incomplete</p>
+            {% endif %}
+            <p class="text-muted float-right" style="font-size:0.8rem;"><i class="fas fa-clock pr-2"></i>{{note.created}}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</div>
+
+<!-- Scripts -->
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>
